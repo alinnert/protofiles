@@ -1,5 +1,5 @@
 {
-  "name": "protofiles",
+  "name": "@protofiles/cli",
   "version": "0.1.0",
   "description": "A tool for creating file using simply templates.",
   "main": "index.js",

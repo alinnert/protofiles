@@ -7,7 +7,7 @@ Protofiles lets you create new files based on your own templates and inputs in t
 This tool is written in TypeScript and based on Node.js.
 
 ~~~
-npm install --global protofiles
+npm install --global @protofiles/cli
 ~~~
 
 ## Overview
