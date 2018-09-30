@@ -4,11 +4,8 @@ import { applyTemplate } from './applyTemplate'
 import { globalConfigDirectory } from './globals'
 
 export async function fallbackAction(protofileName: string, options: any) {
-  console.log(options)
   prepareProtofilesDirectory()
   const protofileDirectory = resolve(globalConfigDirectory, protofileName)
-
-  console.log(protofileDirectory)
 
   if (await pathExists(protofileDirectory)) {
     applyTemplate(protofileDirectory)
