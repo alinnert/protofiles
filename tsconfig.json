@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "strict": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "lib": ["es2018"],
+    "target": "es2018",
+    "moduleResolution": "node",
+    "module": "commonjs"
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
