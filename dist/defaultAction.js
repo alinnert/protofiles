@@ -5,10 +5,8 @@ const path_1 = require("path");
 const applyTemplate_1 = require("./applyTemplate");
 const globals_1 = require("./globals");
 async function fallbackAction(protofileName, options) {
-    console.log(options);
     prepareProtofilesDirectory();
     const protofileDirectory = path_1.resolve(globals_1.globalConfigDirectory, protofileName);
-    console.log(protofileDirectory);
     if (await fs_extra_1.pathExists(protofileDirectory)) {
         applyTemplate_1.applyTemplate(protofileDirectory);
     }
