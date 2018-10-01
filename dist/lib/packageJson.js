@@ -1,9 +1,9 @@
 "use strict";
-exports.__esModule = true;
-var fs_1 = require("fs");
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = require("fs");
 function getPackageData(filepath) {
-    var packageJsonString = fs_1.readFileSync(filepath, 'utf-8');
-    return (function () {
+    const packageJsonString = fs_1.readFileSync(filepath, 'utf-8');
+    return (() => {
         try {
             return JSON.parse(packageJsonString);
         }

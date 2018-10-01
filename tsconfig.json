@@ -4,6 +4,7 @@
     "strict": true,
     "baseUrl": ".",
     "outDir": "dist",
+    "skipLibCheck": true,
     "lib": ["es2018"],
     "target": "es2018",
     "moduleResolution": "node",

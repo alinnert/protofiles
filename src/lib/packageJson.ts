@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { readFileSync } from 'fs'
 
 export function getPackageData(filepath: string) {
   const packageJsonString = readFileSync(filepath, 'utf-8')

@@ -1,15 +1,16 @@
 #!/usr/bin/env node
-import * as commander from 'commander'
-import { dirname, resolve } from 'path'
-import { fallbackAction } from './defaultAction'
-import { getPackageData } from './utils/packageJson'
+import cac from 'cac'
+import { applyTemplateAction } from './actions/applyTemplateAction'
+import { mainAction } from './actions/mainAction'
 
-const packageJson = getPackageData(resolve(dirname(__dirname), 'package.json'))
+const cli = cac({ bin: 'proto' })
 
-commander.version(packageJson.version, '-v, --version')
+cli.command('*', { desc: 'The default command' }, (input, flags) => {
+  if (input[0]) {
+    applyTemplateAction(input[0], flags)
+  } else {
+    mainAction()
+  }
+})
 
-commander
-  .command('* [inputs]')
-  .action(fallbackAction)
-
-commander.parse(process.argv)
+cli.parse()
