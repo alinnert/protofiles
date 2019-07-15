@@ -32,7 +32,8 @@ export async function applyTemplate(protofileDirectory: string) {
       async (fileDescriptor: IProtofileTemplateDescriptor) => ({
         ...fileDescriptor,
         output: await renderProtofileTemplate(
-          resolve(protofileDirectory, `${fileDescriptor.template}.mustache`), answers
+          resolve(protofileDirectory, `${fileDescriptor.template}.mustache`),
+          typeof answers === 'object' && answers !== null ? answers : {}
         )
       })
     )

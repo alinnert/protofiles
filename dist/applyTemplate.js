@@ -13,12 +13,15 @@ async function applyTemplate(protofileDirectory) {
     }
     console.log(await templates_1.renderInternalTemplate('confirm-apply-message', config));
     if (typeof config.inputs === 'object') {
-        const mergeDefaults = (input) => (Object.assign({}, questionDefaults, input));
+        const mergeDefaults = (input) => ({ ...questionDefaults, ...input });
         const questionDefaults = { type: 'input' };
         const questions = config.inputs.map(mergeDefaults);
         const answers = await inquirer_1.prompt(questions);
         const fileDescriptors = config.files(answers);
-        const renderResult = fileDescriptors.map(async (fileDescriptor) => (Object.assign({}, fileDescriptor, { output: await templates_1.renderProtofileTemplate(path_1.resolve(protofileDirectory, `${fileDescriptor.template}.mustache`), answers) })));
+        const renderResult = fileDescriptors.map(async (fileDescriptor) => ({
+            ...fileDescriptor,
+            output: await templates_1.renderProtofileTemplate(path_1.resolve(protofileDirectory, `${fileDescriptor.template}.mustache`), typeof answers === 'object' && answers !== null ? answers : {})
+        }));
         const outputs = await Promise.all(renderResult);
         await Promise.all([
             ...outputs.map(async ({ output, outputPath }) => {
