@@ -4,7 +4,7 @@ import { resolve } from 'path'
 import { table, getBorderCharacters } from 'table'
 import chalk from 'chalk'
 
-export async function mainAction() {
+export async function listTemplatesCommand() {
   const templateNames = await readdir(globalConfigDirectory)
 
   if (templateNames.length) {
@@ -27,6 +27,7 @@ export async function mainAction() {
     const options = {
       border: getBorderCharacters('void'),
       drawHorizontalLine: (index: number) => false,
+      // TODO: find best table width based on `process.stdout.columns`
       columns: {
         0: { width: 20 - 3, paddingLeft: 2 },
         1: { width: 80 - 20 - 5, wrapWord: true }

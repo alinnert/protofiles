@@ -9,12 +9,9 @@ interface IProtofileTemplateDescriptor {
   outputPath: string
 }
 
-interface IProtofileTemplateDescriptorWithOutput extends IProtofileTemplateDescriptor {
-  output: string
-}
-
 export async function applyTemplate(protofileDirectory: string) {
   const config = await getProtofileConfig(protofileDirectory)
+
   if (!config) {
     console.log(`The config file "${configFilename}" is missing from directory ${protofileDirectory}`)
     return

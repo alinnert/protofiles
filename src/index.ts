@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 import cac from 'cac'
-import { applyTemplateAction } from './actions/applyTemplateAction'
-import { mainAction } from './actions/mainAction'
+import { applyTemplateCommand } from './commands/applyTemplateCommand'
+import { listTemplatesCommand } from './commands/listTemplatesCommand'
 
-const cli = cac({ bin: 'proto' })
+const cli = cac({ bin: 'proto', defaultOpts: { help: false, version: false } })
 
-cli.command('*', { desc: 'The default command' }, (input, flags) => {
-  if (input[0]) {
-    applyTemplateAction(input[0], flags)
+cli.command('*', { desc: 'The template command' }, (input, flags) => {
+  const [command, ...args] = input
+  if (command) {
+    applyTemplateCommand(input[0], flags)
   } else {
-    mainAction()
+    listTemplatesCommand()
   }
 })
 
