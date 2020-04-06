@@ -1,6 +1,6 @@
 {
   "name": "@protofiles/cli",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A tool for creating file using simply templates.",
   "main": "index.js",
   "repository": {
@@ -21,18 +21,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.20.0",
+    "commander": "^2.20.3",
     "fs-extra": "^8.1.0",
-    "inquirer": "^6.5.0",
-    "mustache": "^3.0.1"
+    "inquirer": "^6.5.2",
+    "mustache": "^3.2.1"
   },
   "devDependencies": {
-    "@types/core-js": "^2.5.2",
-    "@types/fs-extra": "^8.0.0",
-    "@types/inquirer": "^6.0.3",
+    "@types/core-js": "^2.5.3",
+    "@types/fs-extra": "^8.1.0",
+    "@types/inquirer": "^6.5.0",
     "@types/mustache": "^0.8.32",
-    "@types/node": "^12.6.2",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "@types/node": "^12.12.34",
+    "tslint": "^5.20.1",
+    "typescript": "^3.8.3"
   }
 }

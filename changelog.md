@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3 - 2019-07-15
+
+### Fixed
+
+- Updated code to make it pass the strict TypeScript 3.5 compiler
+
 ## 0.1.2 - 2018-09-30
 
 ### Changed
