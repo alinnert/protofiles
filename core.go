@@ -5,47 +5,44 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 type question struct {
 	label string
 }
 
-type template struct {
+type templateMetadata struct {
 	name, path string
-	templates  [][]byte
-	questions  []question
 }
 
-func findAllTemplates() []template {
-	cwd, err := os.Getwd()
+func fetchAllTemplates() []templateMetadata {
+	var cwd, err = os.Getwd()
 	if err != nil {
 		log.Fatal("Cannot get CWD")
 	}
-	return checkFolder(cwd, nil, []template{})
+	return checkFolderRecursive(cwd, nil, []templateMetadata{})
 }
 
-func checkFolder(
+func checkFolderRecursive(
 	foldername string,
 	previousFoldername *string,
-	templates []template,
-) []template {
+	templates []templateMetadata,
+) []templateMetadata {
 	if previousFoldername != nil && foldername == *previousFoldername {
 		return templates
 	}
 
-	protofilesFolder := filepath.Join(foldername, ".protofiles")
-	files, _ := ioutil.ReadDir(protofilesFolder)
+	var protofilesFolder = filepath.Join(foldername, templatesFolderName)
+	var files, _ = ioutil.ReadDir(protofilesFolder)
 
 	for _, file := range files {
 		if !file.IsDir() {
 			continue
 		}
 
-		templateName := file.Name()
-		templateFolder := filepath.Join(protofilesFolder, templateName)
-		templateFolderContent, err := ioutil.ReadDir(templateFolder)
+		var templateName = file.Name()
+		var templateFolder = filepath.Join(protofilesFolder, templateName)
+		var templateFolderContent, err = ioutil.ReadDir(templateFolder)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
@@ -53,34 +50,38 @@ func checkFolder(
 			continue
 		}
 
-		templateFileContents := [][]byte{}
-
-		for _, templateFile := range templateFolderContent {
-			templateFileName := templateFile.Name()
-
-			if strings.HasSuffix(templateFileName, ".mustache") {
-				templateContent, err := ioutil.ReadFile(templateFileName)
-				if err != nil {
-					continue
-				}
-
-				templateFileContents = append(templateFileContents, templateContent)
-			}
-		}
-
-		if len(templateFileContents) == 0 {
-			continue
-		}
-
-		newTemplate := template{
-			name:      templateName,
-			path:      templateFolder,
-			templates: templateFileContents,
-			questions: []question{},
+		var newTemplate = templateMetadata{
+			name: templateName,
+			path: templateFolder,
 		}
 
 		templates = append(templates, newTemplate)
 	}
 
-	return checkFolder(filepath.Join(foldername, ".."), &foldername, templates)
+	return checkFolderRecursive(
+		filepath.Join(foldername, ".."), &foldername, templates,
+	)
 }
+
+// func foo() {
+// 	for _, file := range files {
+// 		var templateFileContents = [][]byte{}
+
+// 		for _, templateFile := range templateFolderContent {
+// 			var templateFileName = templateFile.Name()
+
+// 			if strings.HasSuffix(templateFileName, ".mustache") {
+// 				var templateContent, err = ioutil.ReadFile(templateFileName)
+// 				if err != nil {
+// 					continue
+// 				}
+
+// 				templateFileContents = append(templateFileContents, templateContent)
+// 			}
+// 		}
+
+// 		if len(templateFileContents) == 0 {
+// 			continue
+// 		}
+// 	}
+// }
